@@ -36,13 +36,13 @@ Note that, if you created a virtual environment, e.g., **env_lpmln**, when you i
 conda activate env_lpmln
 ```
 
-Given the LPMLN program [bird.lpmln](www.google.com), we can find the most probable stable model of it by executing the following command under the folder that contains this .lpmln file.
+Given the LPMLN program [bird.lpmln](./examples/inference/bird.lpmln), we can find the most probable stable model of it by executing the following command under the folder that contains this .lpmln file.
 ```
 lpmln-infer bird.lpmln
 ```
 
 ## Learning Example
-Given the LPMLN program [simple.lpmln](www.google.com) and the observation file [simple.obs](www.google.com) containing observations (i.e., known facts) in the form of ASP constraints, we can learn the weight of the rules in smoke.lpmln such that the probability of the observations is maximized.  Under the folder that contains this .lpmln file, we use the following command.
+Given the LPMLN program [simple.lpmln](./examples/learn/simple.lpmln) and the observation file [simple.obs](./examples/learn/simple.obs) containing observations (i.e., known facts) in the form of ASP constraints, we can learn the weight of the rules in smoke.lpmln such that the probability of the observations is maximized.  Under the folder that contains this .lpmln file, we use the following command.
 ```
 lpmln-learn simple.lpmln -o simple.obs
 ```
