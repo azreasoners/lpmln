@@ -1,0 +1,16 @@
+:- not smokes("edward").
+:- not smokes("frank").
+:- not smokes("gary").
+:- smokes("bob").
+:- smokes("chris").
+:- smokes("daniel").
+:- smokes("helen").
+
+:- not cancer("anna").
+:- not cancer("edward").
+:- cancer("bob").
+:- cancer("frank").
+:- cancer("chris").
+:- cancer("daniel").
+:- cancer("gary").
+:- cancer("helen").

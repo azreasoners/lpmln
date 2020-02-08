@@ -1,0 +1,24 @@
+:- not outcome(1,1).
+:- not outcome(2,6).
+:- not outcome(3,6).
+:- not outcome(4,1).
+:- not outcome(5,1).
+:- not outcome(6,6).
+:- not outcome(7,1).
+:- not outcome(8,1).
+:- not outcome(9,1).
+:- not outcome(10,6).
+:- not outcome(11,6).
+:- not outcome(12,1).
+:- not outcome(13,6).
+:- not outcome(14,1).
+:- not outcome(15,6).
+:- not outcome(16,6).
+:- not outcome(17,1).
+:- not outcome(18,6).
+:- not outcome(19,6).
+:- not outcome(20,1).
+
+
+%10 (T,1)
+%10 (T,6)

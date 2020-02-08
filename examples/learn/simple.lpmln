@@ -1,0 +1,4 @@
+#domain num(X).
+num(1..3).
+{p(X)}.
+@w p(X).

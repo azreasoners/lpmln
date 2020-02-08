@@ -1,0 +1,26 @@
+#domain person(X).
+#domain person(Y).
+
+person("anna","bob","chris","daniel","edward","frank","gary","helen").
+
+@w(1) cancer(X) :- smokes(X).
+@w(2) smokes(Y) :- friends(X, Y), smokes(X).
+
+friends("anna", "bob").
+friends("bob", "anna").
+friends("anna", "edward").
+friends("edward", "anna").
+friends("anna", "frank").
+friends("frank", "anna").
+friends("bob", "chris").
+friends("chris", "bob").
+friends("chris", "daniel").
+friends("daniel", "chris").
+friends("edward", "frank").
+friends("frank", "edward").
+friends("gary", "helen").
+friends("helen", "gary").
+friends("gary", "anna").
+friends("anna", "gary").
+
+smokes("anna").

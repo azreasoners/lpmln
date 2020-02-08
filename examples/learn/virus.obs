@@ -1,0 +1,17 @@
+:- not carries_virus("A").
+:- not carries_virus("E").
+:- not carries_virus("F").
+:- not carries_virus("G").
+:- carries_virus("B").
+:- carries_virus("C").
+:- carries_virus("D").
+:- carries_virus("H").
+
+:- not has_disease("A").
+:- not has_disease("E").
+:- has_disease("B").
+:- has_disease("C").
+:- has_disease("D").
+:- has_disease("F").
+:- has_disease("G").
+:- has_disease("H").

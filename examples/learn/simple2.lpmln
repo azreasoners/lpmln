@@ -1,0 +1,5 @@
+#domain num(X).
+num(1..3).
+@w p(X).
+@w q(X).
+@w z(X).

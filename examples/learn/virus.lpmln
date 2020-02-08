@@ -1,0 +1,25 @@
+#domain person(X).
+#domain person(Y).
+
+@w has_disease(X) :- carries_virus(X).
+@w carries_virus(Y) :- contact(X, Y), carries_virus(X).
+
+person("A"; "B"; "C"; "D"; "E"; "F"; "G"; "H").
+
+carries_virus("A").
+contact("A", "B").
+contact("B", "A").
+contact("A", "E").
+contact("E", "A").
+contact("A", "F").
+contact("F", "A").
+contact("B", "C").
+contact("C", "B").
+contact("C", "D").
+contact("D", "C").
+contact("E", "F").
+contact("F", "E").
+contact("G", "H").
+contact("H", "G").
+contact("G", "A").
+contact("A", "G").

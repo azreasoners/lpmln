@@ -1,0 +1,4 @@
+#domain flip(X).
+flip(1..10).
+1 head1(X) :- pf(X).
+-2 tail1(X) :- pf2(X).

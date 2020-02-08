@@ -1,0 +1,99 @@
+astep(0).
+step(0..1).
+boolean("t"; "f").
+room("r1"; "r2").
+instance(9..12).
+
+#domain astep(AI).
+#domain instance(ID).
+
+% Probability Distribution
+%% Entering a room fails at probability 0.2
+@w pf1(AI, ID).
+ab("enter_failed", I, ID) :- pf1(I, ID), ab(I, ID).
+%% The robot drops the book at probability 0.1
+@w pf2(AI, ID).
+%@log(0.1/0.9) pf2(AI, ID).
+ab("drop_book", I, ID) :- pf2(I, ID), ab(I, ID).
+%% Picking up fails at probability 0.3
+@w pf3(AI, ID).
+%@log(0.3/0.7) pf3(AI, ID).
+ab("pickup_failed", I, ID) :- pf3(I, ID), ab(I, ID).
+
+
+% UEC
+%% Fluents
+:- not loc_robot("r1", I, ID), not loc_robot("r2", I, ID), step(I), instance(ID).
+:- loc_robot("r1", I, ID), loc_robot("r2", I, ID), step(I), instance(ID).
+:- not loc_book("r1", I, ID), not loc_book("r2", I, ID), step(I), instance(ID).
+:- loc_book("r1", I, ID), loc_book("r2", I, ID), step(I), instance(ID).
+:- not hasBook("t", I, ID), not hasBook("f", I, ID), step(I), instance(ID).
+:- hasBook("t", I, ID), hasBook("f", I, ID), step(I), instance(ID).
+%% Actions
+:- not goto(R, "t", I, ID), not goto(R, "f", I, ID), astep(I), room(R), instance(ID).
+:- goto(R, "t", I, ID), goto(R, "f", I, ID), astep(I), room(R), instance(ID).
+:- not pickup_book("t", I, ID), not pickup_book("f", I, ID), astep(I), instance(ID).
+:- pickup_book("t", I, ID), pickup_book("f", I, ID), astep(I), instance(ID).
+:- not putdown_book("t", I, ID), not putdown_book("f", I, ID), astep(I), instance(ID).
+:- putdown_book("t", I, ID), putdown_book("f", I, ID), astep(I), instance(ID).
+
+% Effect of Actions
+loc_robot(R, I+1, ID) :- goto(R, "t", I, ID), not ab("enter_failed", I, ID), instance(ID).
+loc_book(R, I, ID) :- loc_robot(R, I, ID), hasBook("t", I, ID), instance(ID).
+hasBook("t", I+1, ID) :- pickup_book("t", I, ID), loc_robot(R, I, ID), loc_book(R, I, ID), not ab("pickup_failed", I, ID), instance(ID).
+hasBook("f", I+1, ID) :- putdown_book("t", I, ID), instance(ID).
+hasBook("f", I+1, ID) :- ab("drop_book", I, ID), instance(ID).
+
+% Frame Axioms
+loc_robot(R, I+1, ID) :- loc_robot(R, I, ID), astep(I), instance(ID), not not loc_robot(R, I+1, ID).
+loc_book(R, I+1, ID) :- loc_book(R, I, ID), astep(I), instance(ID), not not loc_book(R, I+1, ID).
+hasBook(B, I+1, ID) :- hasBook(B, I, ID), astep(I), instance(ID), not not hasBook(B, I+1, ID).
+
+% No Concurrency
+:- goto(R1, "t", I, ID), goto(R2, "t", I, ID), astep(I), instance(ID), R1 != R2.
+:- goto(R, "t", I, ID), pickup_book("t", I, ID), room(R), astep(I), instance(ID).
+:- goto(R, "t", I, ID), putdown_book("t", I, ID), room(R), astep(I), instance(ID).
+:- pickup_book("t", I, ID), putdown_book("t", I, ID), astep(I), instance(ID).
+
+% Initial state and actions are exogenous
+%loc_robot(R, 0, ID) :- room(R), instance(ID), not nloc_robot(R, 0, ID).
+%nloc_robot(R, 0, ID) :- room(R), instance(ID), not loc_robot(R, 0, ID).
+
+%loc_book(R, 0, ID) :- room(R), instance(ID), not nloc_book(R, 0, ID).
+%nloc_book(R, 0, ID) :- room(R), instance(ID), not loc_book(R, 0, ID).
+
+%hasBook(B, 0, ID) :- instance(ID), boolean(B), not nhasBook(B, 0, ID).
+%nhasBook(B, 0, ID) :- boolean(B), instance(ID), not hasBook(B, 0, ID).
+
+%goto(R, B, I, ID) :- boolean(B), room(R), astep(I), instance(ID), not ngoto(R, B, I, ID).
+%ngoto(R, B, I, ID) :- boolean(B), room(R), astep(I), instance(ID), not goto(R, B, I, ID).
+
+%pickup_book(B, I, ID) :- boolean(B), astep(I), instance(ID), not npickup_book(B, I, ID).
+%npickup_book(B, I, ID) :- boolean(B), astep(I), instance(ID), not pickup_book(B, I, ID).
+
+%putdown_book(B, I, ID) :- boolean(B), astep(I), instance(ID), not nputdown_book(B, I, ID).
+%nputdown_book(B, I, ID) :- boolean(B), astep(I), instance(ID), not putdown_book(B, I, ID).
+
+loc_robot("r1", 0, ID) :- instance(ID), not loc_robot("r2", 0, ID).
+loc_robot("r2", 0, ID) :- instance(ID), not loc_robot("r1", 0, ID).
+
+loc_book("r1", 0, ID) :- instance(ID), not loc_book("r2", 0, ID).
+loc_book("r2", 0, ID) :- instance(ID), not loc_book("r1", 0, ID).
+
+hasBook("t", 0, ID) :- instance(ID), not hasBook("f", 0, ID).
+hasBook("f", 0, ID) :- instance(ID), not hasBook("t", 0, ID).
+
+goto(R, "t", I, ID) :- room(R), astep(I), instance(ID), not goto(R, "f", I, ID).
+goto(R, "f", I, ID) :- room(R), astep(I), instance(ID), not goto(R, "t", I, ID).
+
+pickup_book("t", I, ID) :- astep(I), instance(ID), not pickup_book("f", I, ID).
+pickup_book("f", I, ID) :- astep(I), instance(ID), not pickup_book("t", I, ID).
+
+putdown_book("t", I, ID) :- astep(I), instance(ID), not putdown_book("f", I, ID).
+putdown_book("f", I, ID) :- astep(I), instance(ID), not putdown_book("t", I, ID).
+
+
+% Enable abnormality
+%ab(I, ID) :- step(I), instance(ID), not nab(I, ID).
+%nab(I, ID) :- step(I), instance(ID), not ab(I, ID).
+ab(I, ID) :- instance(ID), astep(I).

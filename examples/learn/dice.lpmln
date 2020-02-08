@@ -1,0 +1,12 @@
+#domain throw(T).
+#domain face(F).
+throw(1..20).
+face(1..6).
+
+:- not 1{outcome(T,FF):face(FF)}1.
+@w outcome(T,1).
+@w outcome(T,2).
+@w outcome(T,3).
+@w outcome(T,4).
+@w outcome(T,5).
+@w outcome(T,6).

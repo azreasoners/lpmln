@@ -1,0 +1,39 @@
+#domain astep(AI).
+
+astep(0..5).
+step(0..6).
+boolean("t";"f").
+
+% Probability Distribution
+@w(1) pf1("t", AI) :- astep(AI).
+@w(2) pf1("f", AI) :- astep(AI).
+
+% UEC
+%% Fluents
+:- not alive("t", I), not alive("f", I), step(I).
+:- alive("t", I), alive("f", I), step(I).
+:- not loaded("t", I), not loaded("f", I), step(I).
+:- loaded("t", I), loaded("f", I), step(I).
+%% Actions
+:- not load("t", I), not load("f", I), astep(I).
+:- load("t", I), load("f", I), step(I).
+:- not fire("t", I), not fire("f", I), astep(I).
+:- fire("t", I), fire("f", I), astep(I).
+%% Probablistic Facts
+:- not pf1("t", I), not pf1("f", I), astep(I).
+:- pf1("t", I), pf1("f", I), astep(I).
+
+% Effect of Actions
+loaded("t", I+1) :- load("t", I), astep(I).
+alive("f", I+1) :- fire("t", I), loaded("t", I), pf1("t", I).
+loaded("f", I+1) :- fire("t", I), loaded("t", I).
+
+% Frame Axioms
+0{alive(B, I+1)} :- alive(B, I), astep(I), boolean(B).
+0{loaded(B, I+1)} :- loaded(B, I), astep(I), boolean(B).
+
+% Initial state and actions are exogenous
+0{loaded(B, 0) : boolean(B)}.
+0{alive(B, 0) : boolean(B)}.
+0{load(B, I) : boolean(B)} :- astep(I).
+0{fire(B, I) : boolean(B)} :- astep(I).
