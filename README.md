@@ -4,6 +4,12 @@ An implementation to compute LPMLN programs using existing ASP and SDD solvers.
 ## Introduction
 LPMLN is a recent addition to probabilistic logic programming languages. Its main idea is to assign weights to stable models in a way similar to Markov Logic assigns weights to models. We present 3 implementations of LPMLN, namely **lpmln-infer** for inference, **lpmln-learn** for weight learning, and **dtlpmln** for DT-LPMLN inference. 
 
+## Try with LPMLN Online
+You can try LPMLN without installing it by using our online editor: 
+http://reasoning.eas.asu.edu/lpmln-web/ .
+A simple user interface allows one to try LPMLN inference, LPMLN learning, and DT-LPMLN (for decision theory) without a hassle. 
+Example projects (each consists of an LPMLN program and an evidence file) are also provided for one to start with. 
+
 ## Prerequisites
 * System: Linux/Ubuntu
 * Software: [Anaconda](https://www.anaconda.com/distribution/#linux)
