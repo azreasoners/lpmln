@@ -1,9 +1,9 @@
 import argparse
-import sys
 import os
+import sys
 import time
-import processor
 
+from src import processor
 
 class lpmln_dec(object):
     def __init__(self):

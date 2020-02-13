@@ -1,8 +1,10 @@
 import argparse
-import sys
 import os
-import processor
+import sys
 import time
+
+from src import processor
+
 class lpmln_learn(object):
     def __init__(self):
         self.learn_arg_parser = argparse.ArgumentParser(description='LPMLN-Learning', prog='LPMLN2ASP')

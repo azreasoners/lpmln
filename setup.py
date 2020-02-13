@@ -1,6 +1,3 @@
-
-
-
 # numpy, ply, ipdb, sympy
 #
 #
@@ -10,7 +7,7 @@ import os
 
 pip_install_argument = "install"
 current_path = os.path.dirname(os.path.abspath(__file__))
-package_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'packages')
+package_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib')
 packages_to_install = ["numpy","sympy","ply","Cython"]
 
 
