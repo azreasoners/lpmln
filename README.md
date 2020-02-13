@@ -36,7 +36,7 @@ python setup.py
 sudo ln -s $(pwd)/lpmln_infer.py /usr/local/bin/lpmln-infer
 sudo ln -s $(pwd)/lpmln_learn.py /usr/local/bin/lpmln-learn
 sudo ln -s $(pwd)/lpmln_dec.py /usr/local/bin/dtlpmln
-chmod +x /usr/local/bin/lpmln*
+chmod +x /usr/local/bin/*lpmln*
 chmod +x $(pwd)/binSupport/*
 ```
 
