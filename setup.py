@@ -5,7 +5,6 @@
 
 import os
 
-pip_install_argument = "install"
 current_path = os.path.dirname(os.path.abspath(__file__))
 package_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib')
 packages_to_install = ["numpy","sympy","ply","Cython"]
@@ -33,12 +32,13 @@ def install(packages):
         exit(0)
 
 
-    global pip_install_argument
     global package_dir
     global current_path
     try:
         print("Installing PySDD library")
-        pip([pip_install_argument, os.path.join(package_dir, 'pysdd')])
+        pip(['install', os.path.join(package_dir, 'pysdd')])
+        # For unknown reason, in order to import pysdd.sdd, the pysdd package has to be installed twice
+        pip(['install', os.path.join(package_dir, 'pysdd')])
         print("Finished installing PySDD library")
     except:
         print("error during installing PySDD library")
