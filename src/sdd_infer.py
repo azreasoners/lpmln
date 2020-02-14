@@ -35,7 +35,7 @@ class sddInference(object):
         self.bytesContent = str.encode(self.content)
         self.saveSDD = saveSDD
         self.saveSDDName = savedSDDName
-        fn_gringo = os.path.join(os.path.dirname(__file__), 'binSupport/gringo')
+        fn_gringo = os.path.join(os.path.dirname(__file__), '../binSupport/gringo')
         p = subprocess.Popen([fn_gringo], shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
         p.stdin.write(self.bytesContent)
         gringo_out = p.communicate()[0]
@@ -43,7 +43,7 @@ class sddInference(object):
         p.stdout.close()
         if self.args.verbosity > 4:
             print("Grounding Done! ")
-        fn_cmodels = os.path.join(os.path.dirname(__file__), 'binSupport/cmodels')
+        fn_cmodels = os.path.join(os.path.dirname(__file__), '../binSupport/cmodels')
         p = subprocess.Popen([fn_cmodels+' -cdimacs'], shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
         p.stdin.write(gringo_out)
         cmodels_out_Name = p.communicate()[0]

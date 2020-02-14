@@ -49,14 +49,14 @@ class run:
         build_sdd_start = time.time()
         bytesContent = str.encode(content)
 
-        fn_gringo = os.path.join(os.path.dirname(__file__), 'binSupport/gringo')
+        fn_gringo = os.path.join(os.path.dirname(__file__), '../binSupport/gringo')
         p = subprocess.Popen([fn_gringo], shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
         p.stdin.write(bytesContent)
         gringo_out = p.communicate()[0]
         p.stdin.close()
         p.stdout.close()
 
-        fn_lp2normal = os.path.join(os.path.dirname(__file__), 'binSupport/lp2normal')
+        fn_lp2normal = os.path.join(os.path.dirname(__file__), '../binSupport/lp2normal')
         p = subprocess.Popen([fn_lp2normal], shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
         p.stdin.write(gringo_out)
         lp2normal_out = p.communicate()[0]
