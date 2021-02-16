@@ -1,6 +1,7 @@
 from src import processor
 import clingo
 from src import xor_constraint_drawer
+from src.lpmln_parser import lpmln_parser
 import random
 import sympy
 
@@ -72,9 +73,9 @@ class learn_simple_comp_evid(object):
             self.progranWithoutPlaceholder += line + "\n"
 
         # Done on creating weight file, and initializing dictionary
-
-        content = processor.lpmln_to_asp_parser(self.progranWithoutPlaceholder)
-        finalout = processor.asp_domain_2_asp_parser(content)
+        lparser = lpmln_parser()
+        content = lparser.lpmln_to_asp_parser(self.progranWithoutPlaceholder)
+        finalout = lparser.asp_domain_2_asp_parser(content)
 
         warn_option = "--warn=none"
         thread_option = "-t 4"
