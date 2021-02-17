@@ -2,6 +2,7 @@ from src import processor
 import clingo
 import sympy
 from src import marginal_mcsat
+from src.lpmln_parser import lpmln_parser
 
 
 
@@ -130,9 +131,10 @@ class learn_simple_incomp_evid(object):
             self.progranWithoutPlaceholder += line + "\n"
 
         # Done on creating weight file, and initializing dictionary
-        content = processor.lpmln_to_lpmln_neg_parser(self.progranWithoutPlaceholder)
-        content = processor.lpmln_to_asp_parser(content)
-        finalout = processor.asp_domain_2_asp_parser(content)
+        lparser = lpmln_parser()
+        content = lparser.lpmln_to_lpmln_neg_parser(self.progranWithoutPlaceholder)
+        content = lparser.lpmln_to_asp_parser(content)
+        finalout = lparser.asp_domain_2_asp_parser(content)
 
         warn_option = "--warn=none"
         thread_option = "-t 4"
@@ -160,9 +162,10 @@ class learn_simple_incomp_evid(object):
         for iter_count in range(self.max_learning_iteration):
             if self.args.verbosity>4:
                 print('============ Iteration ' + str(iter_count) + ' ============')
-            content = processor.lpmln_to_lpmln_neg_parser(self.progranWithoutPlaceholder)
-            content = processor.lpmln_to_asp_parser(content)
-            finalout = processor.asp_domain_2_asp_parser(content)
+            lparser = lpmln_parser()
+            content = lparser.lpmln_to_lpmln_neg_parser(self.progranWithoutPlaceholder)
+            content = lparser.lpmln_to_asp_parser(content)
+            finalout = lparser.asp_domain_2_asp_parser(content)
             self.findTotalMisWithMCSAT(finalout)
 
 
