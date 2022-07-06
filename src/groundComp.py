@@ -48,6 +48,8 @@ class groundComp:
                 if smt_literals[j][0] == '-':
                     smt_literals[j] = smt_literals[j][1:]
                 atom = smt_literals[j]
+                if atom.isnumeric():
+                  continue
                 if cnf_literals[j] != smt_literals[j] and atom not in self.mapping:
                     self.mapping[atom] = cnf_literals[j].replace("-", "")
         return self.mapping
